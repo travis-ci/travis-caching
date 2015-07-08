@@ -1,0 +1,12 @@
+language: ruby
+
+rvm: 2.1.6
+
+services:
+  - redis
+
+sudo: false
+
+cache: bundler
+
+bundler_args: --without development --deployment

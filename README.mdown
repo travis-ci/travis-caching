@@ -1,0 +1,12 @@
+# Travis Caching
+**************************
+
+[![Build Status](https://travis-ci.org/travis-ci/travis-caching.png?branch=master)](https://travis-ci.org/travis-ci/travis-caching)
+
+Travis Caching is a small Sinatra app which acts as a proxy to the Travis caching backend (of choice)
+
+## License & copyright information ##
+
+See LICENSE file.
+
+Copyright (c) 2015 [Travis CI](https://github.com/travis-ci).
