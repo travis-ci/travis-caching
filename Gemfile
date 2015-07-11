@@ -36,4 +36,5 @@ end
 group :test do
   gem 'rack-test'
   gem 'webmock'
+  gem 'sinatra-contrib'
 end
