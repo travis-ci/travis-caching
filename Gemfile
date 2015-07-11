@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.1.6'
+ruby '2.1.5'
 
 gem 'travis-support',  github: 'travis-ci/travis-support'
 
 gem 'sinatra',         '~> 1.4.2'
-gem 'rake',            '~> 0.9.2.2'
+gem 'rake'
 gem 'redis'
 gem 'multi_json'
 
