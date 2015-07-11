@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'travis/caching/app'
 
 describe Travis::Caching::App, :include_sinatra_helpers do
