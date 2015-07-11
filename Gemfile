@@ -21,8 +21,10 @@ gem 'yajl-ruby',       '~> 1.1.0'
 
 gem 'unicorn',         '~> 4.6.2'
 
+gem 'sidekiq'
+
 group :development, :test do
-  gem 'rspec',         '~> 2.9'
+  gem 'rspec'
 end
 
 group :development do
