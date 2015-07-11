@@ -5,6 +5,7 @@ require 'multi_json'
 require 'ipaddr'
 require 'metriks'
 require 'jwt'
+require 'rack/ssl'
 
 module Travis
   module Caching
@@ -13,6 +14,10 @@ module Travis
 
       # use Rack::CommonLogger for request logging
       enable :logging, :dump_errors
+
+      configure(:production, :staging) do
+        use Rack::SSL
+      end
 
       before do
         logger.level = 1

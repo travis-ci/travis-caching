@@ -25,6 +25,8 @@ gem 'sidekiq'
 
 gem 'jwt'
 
+gem 'rack-ssl'
+
 group :development, :test do
   gem 'rspec'
 end
