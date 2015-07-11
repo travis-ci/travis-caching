@@ -29,7 +29,10 @@ module Travis
 
       # the main endpoint for scm services
       get '/cache' do
-        200
+        decoded_payload, header = JWT.decode request["token"], ENV['TRAVIS_JWT_SECRET'], true, {'iss' => 'Travis CI, GmbH', verify_iss: true}
+
+        content_type :json
+        decoded_payload.to_json
       end
     end
   end
