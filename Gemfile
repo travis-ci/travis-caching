@@ -23,6 +23,8 @@ gem 'unicorn',         '~> 4.6.2'
 
 gem 'sidekiq'
 
+gem 'jwt'
+
 group :development, :test do
   gem 'rspec'
 end

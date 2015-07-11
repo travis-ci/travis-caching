@@ -4,6 +4,7 @@ require 'sidekiq'
 require 'multi_json'
 require 'ipaddr'
 require 'metriks'
+require 'jwt'
 
 module Travis
   module Caching
