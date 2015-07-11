@@ -24,12 +24,12 @@ module Travis
 
       # Used for uptime monitoring
       get '/uptime' do
-        200
+        204
       end
 
       # the main endpoint for scm services
       get '/cache' do
-        204
+        200
       end
     end
   end
