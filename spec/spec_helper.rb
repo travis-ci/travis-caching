@@ -11,8 +11,6 @@ require 'payloads'
 require 'sinatra/test_helpers'
 
 ENV['travis_config'] =  <<-EOF
-sentry:
-  dsn: https://tok:en@app.getsentry.com/app_id
 redis:
   url: redis://tok:en@url.com:12345
 jwt:
