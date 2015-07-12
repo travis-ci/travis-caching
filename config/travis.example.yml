@@ -4,9 +4,26 @@ production:
     dsn: https://tok:en@app.getsentry.com/app_id
   redis:
     url: redis://tok:en@url.com:12345
+  jwt:
+    issuer: Travis CI, GmbH
+    secret: superduper
+  aws:
+    id: foo
+    secret: bar
+    region: us-east-1
+    bucket: mybucket
 
 staging:
   sentry:
     dsn: https://tok:en@app.getsentry.com/app_id
   redis:
     url: redis://tok:en@url.com:12345
+  jwt:
+    issuer: Travis CI, GmbH
+    secret: superduper
+  aws:
+    id: foo
+    secret: bar
+    region: us-east-1
+    bucket: mybucket
+
