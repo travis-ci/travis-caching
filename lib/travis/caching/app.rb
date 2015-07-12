@@ -23,6 +23,11 @@ module Travis
         logger.level = 1
       end
 
+      error JWT::DecodeError do
+        status 500
+        'JWT decoding failed'
+      end
+
       get '/' do
         redirect "http://docs.travis-ci.com"
       end
@@ -34,7 +39,7 @@ module Travis
 
       # the main endpoint for scm services
       get '/cache' do
-        decoded_payload, header = JWT.decode request["token"], ENV['TRAVIS_JWT_SECRET'], true, {'iss' => 'Travis CI, GmbH', verify_iss: true}
+        decoded_payload, header = JWT.decode request["token"], ENV['TRAVIS_JWT_SECRET'], true, {'iss' =>  ENV['TRAVIS_JWT_ISSUER'], verify_iss: true}
 
         content_type :json
         decoded_payload.to_json
