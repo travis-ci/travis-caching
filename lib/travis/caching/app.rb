@@ -6,6 +6,7 @@ require 'ipaddr'
 require 'metriks'
 require 'jwt'
 require 'rack/ssl'
+require 'travis/caching/s3/aws4_signature'
 
 module Travis
   module Caching
