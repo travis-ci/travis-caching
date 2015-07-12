@@ -4,8 +4,6 @@ describe Travis::Caching::App, :include_sinatra_helpers do
 
   before(:each) do
     set_app described_class.new
-    ENV['TRAVIS_JWT_SECRET'] = 'superduper'
-    ENV['TRAVIS_JWT_ISSUER'] = 'test_jwt_issuer'
     header('Content-Type', 'application/json')
   end
 
@@ -23,7 +21,7 @@ describe Travis::Caching::App, :include_sinatra_helpers do
     }
     let(:payload) {
       {
-        'iss' => ENV["TRAVIS_JWT_ISSUER"],
+        'iss' => Travis.config.jwt.issuer,
         'payload' => {
           'slug' => 'travis-ci/travis-ci',
           'branch' => 'master',

@@ -10,6 +10,21 @@ require 'payloads'
 
 require 'sinatra/test_helpers'
 
+ENV['travis_config'] =  <<-EOF
+sentry:
+  dsn: https://tok:en@app.getsentry.com/app_id
+redis:
+  url: redis://tok:en@url.com:12345
+jwt:
+  issuer: test_jwt_issuer
+  secret: superduper
+aws:
+  id: foo
+  secret: bar
+  region: us-east-1
+  bucket: mybucket
+EOF
+
 Travis.logger = ::Logger.new(StringIO.new)
 
 Travis::Caching.setup

@@ -13,6 +13,17 @@ module Travis
     class App < Sinatra::Base
       include Logging
 
+      KeyPair = Struct.new(:id, :secret)
+
+      Location = Struct.new(:scheme, :region, :bucket, :path) do
+        def hostname
+          "#{bucket}.#{region == 'us-east-1' ? 's3' : "s3-#{region}"}.amazonaws.com"
+        end
+      end
+
+      attr_reader :jwt_config, :aws_config
+
+
       # use Rack::CommonLogger for request logging
       enable :logging, :dump_errors
 
@@ -40,7 +51,30 @@ module Travis
 
       # the main endpoint for scm services
       get '/cache' do
-        decoded_payload, header = JWT.decode request["token"], ENV['TRAVIS_JWT_SECRET'], true, {'iss' =>  ENV['TRAVIS_JWT_ISSUER'], verify_iss: true}
+        @jwt_config ||= Travis.config.jwt
+        @aws_config ||= Travis.config.aws
+
+        decoded_payload, header = JWT.decode request["token"], jwt_config.secret, true, {'iss' =>  jwt_config.issuer, verify_iss: true}
+
+        payload      = decoded_payload['playload']
+        aws_id       = aws_config.id
+        aws_secret   = aws_config.secret
+        aws_region   = aws_config.region
+        aws_bucket   = aws_config.bucket
+
+        slugs = [] # TODO: devise a reasonable means of populating this array
+
+        slug = slugs.find do |path|
+          sig = S3::AWS4Signature.new(
+            KeyPair.new(aws_id, aws_secret), 'HEAD', Location.new('https', aws_region, aws_bucket, path), nil
+          )
+
+          url = URI.parse(sig.to_uri)
+
+          connection = Net::HTTP.new(url.host)
+          response = connection.head(url.path)
+          response.is_a? Net::HTTPSuccess
+        end
 
         content_type :json
         decoded_payload.to_json
