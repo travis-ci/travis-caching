@@ -27,6 +27,8 @@ gem 'jwt'
 
 gem 'rack-ssl'
 
+gem 'addressable'
+
 group :development, :test do
   gem 'rspec'
 end

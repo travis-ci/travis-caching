@@ -109,6 +109,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport (~> 3.2.13)
+  addressable
   foreman (~> 0.41.0)
   hashr (~> 0.0.19)
   jwt
