@@ -6,7 +6,7 @@ require 'ipaddr'
 require 'metriks'
 require 'jwt'
 require 'rack/ssl'
-require 'travis/caching/s3/aws4_signature'
+require 'travis/caching/backends'
 
 module Travis
   module Caching
@@ -21,8 +21,7 @@ module Travis
         end
       end
 
-      attr_reader :jwt_config
-
+      attr_reader :jwt_config, :backend
 
       # use Rack::CommonLogger for request logging
       enable :logging, :dump_errors
@@ -33,6 +32,11 @@ module Travis
 
       before do
         logger.level = 1
+
+        backend_config = Travis.config.backend
+
+        klass, conf = backend_config.first # we use only one
+        @backend = Travis::Caching::Backends.const_get(klass.upcase).new(conf)
       end
 
       error JWT::DecodeError do
