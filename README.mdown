@@ -26,6 +26,9 @@ Token is in the [JWT](http://jwt.io/) format with the following payload format:
 ```json
 {
   "iss": "com.travis-ci",
+  "exp": 1438747060,
+  "jti": "",
+  "iat": 1438746895,
   "payload": {
   	"repo_slug": "travis-ci/travis-caching",
   	"branch": "super-duper-awesome-feature",
