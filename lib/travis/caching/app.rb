@@ -61,6 +61,7 @@ module Travis
           {
             'iss' =>  jwt_config.issuer,
             verify_iss: true,
+            verify_iat: true,
             algorithm: jwt_config.algorithm # verify algorithm is one we expect
           }
         )

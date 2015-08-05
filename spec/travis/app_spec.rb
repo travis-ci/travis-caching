@@ -22,6 +22,8 @@ describe Travis::Caching::App, :include_sinatra_helpers do
     let(:payload) {
       {
         'iss' => Travis.config.jwt.issuer,
+        'exp' => Time.now.to_i + 4 * 60,
+        'iat' => Time.now.to_i,
         'payload' => {
           'slug' => 'travis-ci/travis-ci',
           'branch' => 'master',
