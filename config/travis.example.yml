@@ -5,9 +5,9 @@ test:
     issuer: test_jwt_issuer
     secret: superduper
     algorithm: HS256
-  s3:
-    id: foo
-    secret: bar
-    region: us-east-1
-    bucket: mybucket
-
+  backend:
+    s3:
+      id: foo
+      secret: bar
+      region: us-east-1
+      bucket: mybucket
