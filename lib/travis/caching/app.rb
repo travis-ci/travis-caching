@@ -71,20 +71,6 @@ module Travis
         aws_region   = aws_config.region
         aws_bucket   = aws_config.bucket
 
-        slugs = [] # TODO: devise a reasonable means of populating this array
-
-        slug = slugs.find do |path|
-          sig = S3::AWS4Signature.new(
-            KeyPair.new(aws_id, aws_secret), 'HEAD', Location.new('https', aws_region, aws_bucket, path), nil
-          )
-
-          url = URI.parse(sig.to_uri)
-
-          connection = Net::HTTP.new(url.host)
-          response = connection.head(url.path)
-          response.is_a? Net::HTTPSuccess
-        end
-
         content_type :json
         decoded_payload.to_json
       end
