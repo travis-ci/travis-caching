@@ -5,6 +5,55 @@
 
 Travis Caching is a small Sinatra app which acts as a proxy to the Travis caching backend (of choice)
 
+## Overview
+
+Travis Caching (TC) provides a few useful API endpoints for serving client programs.
+A client asks TC for a cache URL with a valid payload, and TC will return
+it.
+
+## Endpoints
+
+### `GET /cache`
+
+Accepts a single parameter, `token`, validates it, and if it is valid,
+redirects (via 301) to for the appropriate cache's URL.
+
+#### token
+
+Token is in the [JWT](http://jwt.io/) format with the following payload format:
+
+```json
+{
+  "iss": "com.travis-ci",
+  "payload": {
+  	"repo_slug": "travis-ci/travis-caching",
+  	"branch": "super-duper-awesome-feature",
+  	"cache_slug": "--rvm-default--gemfile-Gemfile"
+  }
+}
+```
+
+The `iss` value and the shared secret are configurable.
+
+### `POST /cache`
+
+Accepts a single parameter, `token`, validates it, and if it is valid,
+redirects (via 301) the request to the appropriate URL and uploads the data,
+which is given in the body of the request.
+
+### `GET /uptime`
+
+Returns status 204.
+
+## Running Travis Caching
+
+1. Copy `config/travis.example.yml` to `config/travis.yml`
+1. Configure `travis.yml` according to your requirements
+1. Install `foreman`: `gem install foreman`
+1. Run `bundle install`
+1. Run `foreman start`
+1. Open http://localhost:5000/cache?token=JWT_TOKEN
+
 ## License & copyright information ##
 
 See LICENSE file.

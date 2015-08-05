@@ -13,6 +13,8 @@ Issues for any Travis CI repo should be submitted to https://github.com/travis-c
 - What steps are required to reproduce the issue
 - An example build that shows the issue
 
+Please report issues to https://github.com/travis-ci/travis-ci/issues
+
 ## Submitting a PR to Travis Caching
 
 See testing and setup notes in the base [README](https://github.com/travis-ci/travis-caching)
