@@ -49,7 +49,7 @@ module Travis
         204
       end
 
-      # the main endpoint for scm services
+      # the main endpoint for caching services
       get '/cache' do
         @jwt_config ||= Travis.config.jwt
         @aws_config ||= Travis.config.aws
