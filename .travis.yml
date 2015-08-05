@@ -9,4 +9,7 @@ sudo: false
 
 cache: bundler
 
+before_install:
+  - cp config/travis.example.yml config/travis.yml
+
 bundler_args: --without development --deployment
