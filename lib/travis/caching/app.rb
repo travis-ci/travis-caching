@@ -21,7 +21,7 @@ module Travis
         end
       end
 
-      attr_reader :jwt_config, :aws_config
+      attr_reader :jwt_config
 
 
       # use Rack::CommonLogger for request logging
@@ -52,7 +52,6 @@ module Travis
       # the main endpoint for caching services
       get '/cache' do
         @jwt_config ||= Travis.config.jwt
-        @aws_config ||= Travis.config.aws
 
         decoded_payload, header = JWT.decode(
           request["token"],
@@ -67,10 +66,6 @@ module Travis
         )
 
         payload      = decoded_payload['playload']
-        aws_id       = aws_config.id
-        aws_secret   = aws_config.secret
-        aws_region   = aws_config.region
-        aws_bucket   = aws_config.bucket
 
         content_type :json
         decoded_payload.to_json
