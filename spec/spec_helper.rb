@@ -16,6 +16,7 @@ redis:
 jwt:
   issuer: test_jwt_issuer
   secret: superduper
+  algorithm: HS256
 aws:
   id: foo
   secret: bar

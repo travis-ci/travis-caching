@@ -54,7 +54,16 @@ module Travis
         @jwt_config ||= Travis.config.jwt
         @aws_config ||= Travis.config.aws
 
-        decoded_payload, header = JWT.decode request["token"], jwt_config.secret, true, {'iss' =>  jwt_config.issuer, verify_iss: true}
+        decoded_payload, header = JWT.decode(
+          request["token"],
+          jwt_config.secret,
+          true,
+          {
+            'iss' =>  jwt_config.issuer,
+            verify_iss: true,
+            algorithm: jwt_config.algorithm # verify algorithm is one we expect
+          }
+        )
 
         payload      = decoded_payload['playload']
         aws_id       = aws_config.id
