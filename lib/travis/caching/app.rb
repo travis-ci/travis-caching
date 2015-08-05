@@ -32,9 +32,12 @@ module Travis
 
       before do
         logger.level = 1
+      end
+
+      before '/cache' do
+        @jwt_config ||= Travis.config.jwt
 
         backend_config = Travis.config.backend
-
         klass, conf = backend_config.first # we use only one
         @backend = Travis::Caching::Backends.const_get(klass.upcase).new(conf)
       end
@@ -55,7 +58,6 @@ module Travis
 
       # the main endpoint for caching services
       get '/cache' do
-        @jwt_config ||= Travis.config.jwt
 
         decoded_payload, header = JWT.decode(
           request["token"],
