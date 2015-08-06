@@ -63,7 +63,10 @@ module Travis
           }
         )
 
-        payload      = decoded_payload['playload']
+        payload      = decoded_payload['payload']
+
+        # this is currently a noop, just exercising the backend code
+        backend.url_for(payload.merge({'verb' => 'GET'}))
 
         content_type :json
         decoded_payload.to_json

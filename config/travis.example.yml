@@ -11,3 +11,4 @@ test:
       secret: bar
       region: us-east-1
       bucket: mybucket
+      expires: 300
