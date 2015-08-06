@@ -21,11 +21,7 @@ module Travis
 
           @key_pair = OpenStruct.new(id: id, secret: secret)
 
-          args = payload.values_at('repo_id', 'branch', 'cache_slug').compact
-          args.map! { |arg| arg.to_s.gsub(/[^\w\.\_\-]+/, '') }
-          path = '/' << args.join('/') << '.tgz'
-
-          @location = OpenStruct.new(scheme: scheme, region: region, bucket: bucket, path: path)
+          @location = OpenStruct.new(scheme: scheme, region: region, bucket: bucket, path: path(payload))
 
           query = canonical_query_params.dup
           query["X-Amz-Signature"] = OpenSSL::HMAC.hexdigest("sha256", signing_key, string_to_sign)
@@ -39,6 +35,12 @@ module Travis
         end
 
         private
+
+        def path(payload)
+          args = payload.values_at('repo_id', 'branch', 'cache_slug').compact
+          args.map! { |arg| arg.to_s.gsub(/[^\w\.\_\-]+/, '') }
+          '/' << args.join('/') << '.tgz'
+        end
 
         def scheme
           'https'
