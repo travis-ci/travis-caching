@@ -50,32 +50,21 @@ module Travis
 
       # the main endpoint for caching services
       get '/cache' do
+        payload = decode_payload_from(request['token'])
 
-        decoded_payload, header = JWT.decode(
-          request["token"],
-          jwt_config.secret,
-          true,
-          {
-            'iss' =>  jwt_config.issuer,
-            verify_iss: true,
-            verify_iat: true,
-            algorithm: jwt_config.algorithm # verify algorithm is one we expect
-          }
-        )
-
-        payload      = decoded_payload['payload']
-
-        # this is currently a noop, just exercising the backend code
-        backend.url_for(payload.merge({'verb' => 'GET'}))
-
-        content_type :json
-        decoded_payload.to_json
+        redirect backend.url_for(payload.merge({'verb' => 'GET'}))
       end
 
       put '/cache' do
+        payload = decode_payload_from(request['token'])
 
+        redirect backend.url_for(payload.merge({'verb' => 'PUT'}))
+      end
+
+      private
+      def decode_payload_from(token)
         decoded_payload, header = JWT.decode(
-          request["token"],
+          token,
           jwt_config.secret,
           true,
           {
@@ -86,13 +75,7 @@ module Travis
           }
         )
 
-        payload      = decoded_payload['payload']
-
-        # this is currently a noop, just exercising the backend code
-        backend.url_for(payload.merge({'verb' => 'PUT'}))
-
-        content_type :json
-        decoded_payload.to_json
+        decoded_payload['payload']
       end
 
     end

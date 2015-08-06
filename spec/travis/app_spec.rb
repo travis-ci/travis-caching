@@ -34,9 +34,10 @@ describe Travis::Caching::App, :include_sinatra_helpers do
     }
 
     it 'decodes payload correctly' do
-      response = get "/cache?token=#{hs256_token}"
-      expect(response.status).to be == 200
-      expect(JSON.parse(response.body)).to eq(payload)
+      get "/cache?token=#{hs256_token}"
+      expect(last_response).to be_redirect
+      # we do not test where it redirects to
+      # it is tested by backend's specs
     end
 
     context 'with token with incorrect issuer' do
@@ -47,8 +48,8 @@ describe Travis::Caching::App, :include_sinatra_helpers do
       }
 
       it 'returns status 500' do
-        response = get "/cache?token=#{hs256_token}"
-        expect(response.status).to be == 500
+        get "/cache?token=#{hs256_token}"
+        expect(last_response.status).to be == 500
       end
     end
 
@@ -58,8 +59,8 @@ describe Travis::Caching::App, :include_sinatra_helpers do
       }
 
       it 'returns status 500' do
-        response = get "/cache?token=#{rs256_token}"
-        expect(response.status).to be == 500
+        get "/cache?token=#{rs256_token}"
+        expect(last_response.status).to be == 500
       end
     end
   end
@@ -70,9 +71,10 @@ describe Travis::Caching::App, :include_sinatra_helpers do
     }
 
     it 'decodes payload correctly' do
-      response = put "/cache?token=#{hs256_token}"
-      expect(response.status).to be == 200
-      expect(JSON.parse(response.body)).to eq(payload)
+      put "/cache?token=#{hs256_token}"
+      expect(last_response).to be_redirect
+      # we do not test where it redirects to
+      # it is tested by backend's specs
     end
 
     context 'with token with incorrect issuer' do
@@ -83,8 +85,8 @@ describe Travis::Caching::App, :include_sinatra_helpers do
       }
 
       it 'returns status 500' do
-        response = put "/cache?token=#{hs256_token}"
-        expect(response.status).to be == 500
+        put "/cache?token=#{hs256_token}"
+        expect(last_response.status).to be == 500
       end
     end
 
@@ -94,8 +96,8 @@ describe Travis::Caching::App, :include_sinatra_helpers do
       }
 
       it 'returns status 500' do
-        response = put "/cache?token=#{rs256_token}"
-        expect(response.status).to be == 500
+        put "/cache?token=#{rs256_token}"
+        expect(last_response.status).to be == 500
       end
     end
   end
