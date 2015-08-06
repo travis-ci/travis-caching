@@ -13,14 +13,6 @@ module Travis
     class App < Sinatra::Base
       include Logging
 
-      KeyPair = Struct.new(:id, :secret)
-
-      Location = Struct.new(:scheme, :region, :bucket, :path) do
-        def hostname
-          "#{bucket}.#{region == 'us-east-1' ? 's3' : "s3-#{region}"}.amazonaws.com"
-        end
-      end
-
       attr_reader :jwt_config, :backend
 
       # use Rack::CommonLogger for request logging
