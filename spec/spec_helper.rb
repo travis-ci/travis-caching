@@ -1,8 +1,6 @@
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 
-WebMock.disable_net_connect!(:allow => "codeclimate.com")
-
 ENV["RACK_ENV"] ||= 'test'
 
 require 'rack/test'
@@ -32,3 +30,5 @@ RSpec.configure do |c|
     Support::Webmock.mock!
   end
 end
+
+WebMock.disable_net_connect!(:allow => "codeclimate.com")
