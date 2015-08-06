@@ -71,6 +71,30 @@ module Travis
         content_type :json
         decoded_payload.to_json
       end
+
+      put '/cache' do
+
+        decoded_payload, header = JWT.decode(
+          request["token"],
+          jwt_config.secret,
+          true,
+          {
+            'iss' =>  jwt_config.issuer,
+            verify_iss: true,
+            verify_iat: true,
+            algorithm: jwt_config.algorithm # verify algorithm is one we expect
+          }
+        )
+
+        payload      = decoded_payload['payload']
+
+        # this is currently a noop, just exercising the backend code
+        backend.url_for(payload.merge({'verb' => 'PUT'}))
+
+        content_type :json
+        decoded_payload.to_json
+      end
+
     end
   end
 end
