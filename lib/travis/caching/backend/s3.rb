@@ -21,7 +21,7 @@ module Travis
 
           @key_pair = OpenStruct.new(id: id, secret: secret)
 
-          @location = OpenStruct.new(scheme: scheme, region: region, bucket: bucket, path: path(payload))
+          @location = OpenStruct.new(scheme: scheme, region: region, bucket: bucket, path: path(payload), hostname: hostname)
 
           query = canonical_query_params.dup
           query["X-Amz-Signature"] = OpenSSL::HMAC.hexdigest("sha256", signing_key, string_to_sign)
