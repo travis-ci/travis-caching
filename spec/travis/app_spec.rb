@@ -2,6 +2,20 @@ require 'travis/caching/app'
 
 describe Travis::Caching::App, :include_sinatra_helpers do
 
+  let(:payload) {
+    {
+      'iss' => Travis.config.jwt.issuer,
+      'exp' => Time.now.to_i + 4 * 60,
+      'iat' => Time.now.to_i,
+      'payload' => {
+        'repo_slug' => 'travis-ci/travis-ci',
+        'repo_id' => 123456,
+        'branch' => 'master',
+        'cache_slug' => 'cache--rvm-default--gemfile-Gemfile',
+      }
+    }
+  }
+
   before(:each) do
     set_app described_class.new
     header('Content-Type', 'application/json')
@@ -17,20 +31,6 @@ describe Travis::Caching::App, :include_sinatra_helpers do
   describe 'GET /cache' do
     let(:hs256_token) {
       JWT.encode payload, Travis.config.jwt.secret, 'HS256'
-    }
-
-    let(:payload) {
-      {
-        'iss' => Travis.config.jwt.issuer,
-        'exp' => Time.now.to_i + 4 * 60,
-        'iat' => Time.now.to_i,
-        'payload' => {
-          'slug' => 'travis-ci/travis-ci',
-          'branch' => 'master',
-          'language' => 'ruby',
-          'pull-request' => false
-        }
-      }
     }
 
     it 'decodes payload correctly' do
@@ -67,20 +67,6 @@ describe Travis::Caching::App, :include_sinatra_helpers do
   describe 'PUT /cache' do
     let(:hs256_token) {
       JWT.encode payload, Travis.config.jwt.secret, 'HS256'
-    }
-
-    let(:payload) {
-      {
-        'iss' => Travis.config.jwt.issuer,
-        'exp' => Time.now.to_i + 4 * 60,
-        'iat' => Time.now.to_i,
-        'payload' => {
-          'slug' => 'travis-ci/travis-ci',
-          'branch' => 'master',
-          'language' => 'ruby',
-          'pull-request' => false
-        }
-      }
     }
 
     it 'decodes payload correctly' do
