@@ -6,7 +6,7 @@ require 'ipaddr'
 require 'metriks'
 require 'jwt'
 require 'rack/ssl'
-require 'travis/caching/backends'
+require 'travis/caching/backend'
 
 module Travis
   module Caching
@@ -31,7 +31,7 @@ module Travis
 
         backend_config = Travis.config.backend
         klass, conf = backend_config.first # we use only one
-        @backend = Travis::Caching::Backends.const_get(klass.upcase).new(conf)
+        @backend = Travis::Caching::Backend.const_get(klass.upcase).new(conf)
       end
 
       error JWT::DecodeError do

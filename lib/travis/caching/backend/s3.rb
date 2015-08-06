@@ -5,7 +5,7 @@ require 'digest/sha1'
 
 module Travis
   module Caching
-    module Backends
+    module Backend
       class S3 < Base
         # needs
         # - id

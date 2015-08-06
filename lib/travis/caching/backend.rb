@@ -2,9 +2,9 @@ require 'ostruct'
 
 module Travis
   module Caching
-    module Backends
+    module Backend
 
-      autoload :S3, 'travis/caching/backends/s3'
+      autoload :S3, 'travis/caching/backend/s3'
 
       class Base
         attr_reader :proxy, :time
