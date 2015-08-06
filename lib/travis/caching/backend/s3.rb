@@ -21,9 +21,10 @@ module Travis
 
           @key_pair = OpenStruct.new(id: id, secret: secret)
 
-          # TODO: construct 'path' based on payload
-          # path = …
-          path = '/a/b/c/cache.tgz'
+          args = payload.values_at('repo_id', 'branch', 'cache_slug').compact
+          args.map! { |arg| arg.to_s.gsub(/[^\w\.\_\-]+/, '') }
+          path = '/' << args.join('/') << '.tgz'
+
           @location = OpenStruct.new(scheme: scheme, region: region, bucket: bucket, path: path)
 
           query = canonical_query_params.dup
@@ -31,7 +32,7 @@ module Travis
 
           Addressable::URI.new(
             scheme: location.scheme,
-            host: location.hostname,
+            host: hostname,
             path: location.path,
             query_values: query,
           )

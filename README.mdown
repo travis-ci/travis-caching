@@ -30,9 +30,10 @@ Token is in the [JWT](http://jwt.io/) format with the following payload format:
   "jti": "",
   "iat": 1438746895,
   "payload": {
-  	"repo_slug": "travis-ci/travis-caching",
-  	"branch": "super-duper-awesome-feature",
-  	"cache_slug": "--rvm-default--gemfile-Gemfile"
+    "repo_slug": "travis-ci/travis-caching",
+    "repo_id": 347135,
+    "branch": "super-duper-awesome-feature",
+    "cache_slug": "--rvm-default--gemfile-Gemfile"
   }
 }
 ```
