@@ -29,9 +29,6 @@ module Travis
       before '/cache' do
         @jwt_config ||= Travis.config.jwt
 
-        backend_config = Travis.config.backend
-        klass, conf = backend_config.first # we use only one
-        @backend = Travis::Caching::Backend.const_get(klass.upcase).new(conf)
       end
 
       error JWT::DecodeError do
@@ -52,11 +49,17 @@ module Travis
       get '/cache' do
         payload = decode_payload_from(request['token'])
 
+        backend_config = Travis.config.backend[payload['backend']]
+        backend = Travis::Caching::Backend.const_get(payload['backend'].upcase).new(backend_config)
+
         redirect backend.url_for(payload.merge({'verb' => 'GET'}))
       end
 
       put '/cache' do
         payload = decode_payload_from(request['token'])
+
+        backend_config = Travis.config.backend[payload['backend']]
+        backend = Travis::Caching::Backend.const_get(payload['backend'].upcase).new(backend_config)
 
         redirect backend.url_for(payload.merge({'verb' => 'PUT'}))
       end

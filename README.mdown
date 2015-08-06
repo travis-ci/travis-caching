@@ -33,6 +33,7 @@ Token is in the [JWT](http://jwt.io/) format with the following payload format:
     "repo_slug": "travis-ci/travis-caching",
     "repo_id": 347135,
     "branch": "super-duper-awesome-feature",
+    "backend": "s3",
     "cache_slug": "cache--rvm-default--gemfile-Gemfile"
   }
 }

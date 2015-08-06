@@ -11,6 +11,7 @@ describe Travis::Caching::App, :include_sinatra_helpers do
         'repo_slug' => 'travis-ci/travis-ci',
         'repo_id' => 123456,
         'branch' => 'master',
+        'backend' => 's3',
         'cache_slug' => 'cache--rvm-default--gemfile-Gemfile',
       }
     }
