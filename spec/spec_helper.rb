@@ -9,14 +9,12 @@ require 'webmock/rspec'
 
 require 'travis/caching'
 require 'support/webmock'
-require 'payloads'
 
 require 'sinatra/test_helpers'
 
 Travis.logger = ::Logger.new(StringIO.new)
 
 Travis::Caching.setup
-Travis::Caching.connect
 
 RSpec.configure do |c|
   c.include Rack::Test::Methods
