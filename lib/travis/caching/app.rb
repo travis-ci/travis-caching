@@ -13,6 +13,8 @@ module Travis
     class App < Sinatra::Base
       include Logging
 
+      REQUIRED_KEYS = %w(repo_slug repo_id branch backend cache_slug)
+
       attr_reader :jwt_config
 
       # use Rack::CommonLogger for request logging
@@ -79,6 +81,10 @@ module Travis
         )
 
         decoded_payload['payload']
+      end
+
+      def validate(payload)
+        REQUIRED_KEYS.all? { |k| payload[k] }
       end
 
     end
