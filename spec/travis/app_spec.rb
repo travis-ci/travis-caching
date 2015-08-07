@@ -41,6 +41,29 @@ describe Travis::Caching::App, :include_sinatra_helpers do
       # it is tested by backend's specs
     end
 
+    context 'with invalid payload' do
+      let(:payload) {
+        {
+          'iss' => Travis.config.jwt.issuer,
+          'exp' => Time.now.to_i + 4 * 60,
+          'iat' => Time.now.to_i,
+          'payload' => {
+            'repo_slug' => 'travis-ci/travis-ci',
+            'repo_id' => 123456,
+            'branch' => 'master',
+            # 'backend' => 's3', missing pair
+            'cache_slug' => 'cache--rvm-default--gemfile-Gemfile',
+          }
+        }
+      }
+
+      it 'returns status 500 with meaningful message' do
+        get "/cache?token=#{hs256_token}"
+        expect(last_response.status).to be == 500
+        expect(last_response.body).to match /Required keys missing.*backend/
+      end
+    end
+
     context 'with token with incorrect issuer' do
       let(:hs256_token) {
         pl = payload.dup

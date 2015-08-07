@@ -15,6 +15,8 @@ module Travis
 
       REQUIRED_KEYS = %w(repo_slug repo_id branch backend cache_slug)
 
+      class InvalidPayloadError < StandardError; end
+
       attr_reader :jwt_config
 
       # use Rack::CommonLogger for request logging
@@ -36,6 +38,11 @@ module Travis
       error JWT::DecodeError do
         status 500
         'JWT decoding failed'
+      end
+
+      error InvalidPayloadError do
+        status 500
+        'Payload is invalid. ' + env['sinatra.error'].message
       end
 
       get '/' do
@@ -79,11 +86,17 @@ module Travis
           }
         )
 
-        decoded_payload['payload'].tap {|pl| raise unless validate(pl)}
+        decoded_payload['payload'].tap { |pl|
+          raise InvalidPayloadError.new("Required keys missing: #{missing_keys(pl)}") unless all_required_keys_present?(pl)
+        }
       end
 
-      def validate(payload)
-        REQUIRED_KEYS.all? { |k| payload[k] }
+      def missing_keys(payload)
+        REQUIRED_KEYS - REQUIRED_KEYS.select { |k| payload[k] }
+      end
+
+      def all_required_keys_present?(payload)
+        missing_keys(payload).size == 0
       end
 
     end
