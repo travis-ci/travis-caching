@@ -13,7 +13,7 @@ module Travis
     class App < Sinatra::Base
       include Logging
 
-      attr_reader :jwt_config, :backend
+      attr_reader :jwt_config
 
       # use Rack::CommonLogger for request logging
       enable :logging, :dump_errors
