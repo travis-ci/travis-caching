@@ -70,7 +70,7 @@ module Travis
         backend_config = Travis.config.backend[payload['backend']]
         backend = Travis::Caching::Backend.const_get(payload['backend'].upcase).new(backend_config)
 
-        redirect backend.url_for(payload.merge({'verb' => verb}))
+        backend.url_for(payload.merge({'verb' => verb}))
       end
 
       def decode_payload_from(token)
