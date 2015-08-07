@@ -16,7 +16,7 @@ module Travis
 
         def method_missing(method, *args)
           if proxy.respond_to? method
-            proxy.send(method)
+            proxy.send(method, *args)
           else
             super
           end
