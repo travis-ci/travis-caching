@@ -7,7 +7,7 @@ module Travis
   module Caching
     module Backend
       class S3 < Base
-        # needs
+        # keys needed in config
         # - id
         # - secret
         # - region
