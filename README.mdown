@@ -17,7 +17,7 @@ backend.
 ### `GET /cache`
 
 Accepts a single parameter, `token`, validates it, and if it is valid,
-redirects to for the appropriate cache's URL.
+redirects to the appropriate cache's URL.
 
 In generating the URL, TC will use the caching backend specified in the payload
 shown below.
