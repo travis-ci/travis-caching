@@ -49,24 +49,23 @@ module Travis
 
       # the main endpoint for caching services
       get '/cache' do
-        payload = decode_payload_from(request['token'])
-
-        backend_config = Travis.config.backend[payload['backend']]
-        backend = Travis::Caching::Backend.const_get(payload['backend'].upcase).new(backend_config)
-
-        redirect backend.url_for(payload.merge({'verb' => 'GET'}))
+        redirect url_for(token: request['token'], verb: 'GET')
       end
 
       put '/cache' do
-        payload = decode_payload_from(request['token'])
+        redirect url_for(token: request['token'], verb: 'PUT')
+      end
+
+      private
+      def url_for(token:, verb:)
+        payload = decode_payload_from(token)
 
         backend_config = Travis.config.backend[payload['backend']]
         backend = Travis::Caching::Backend.const_get(payload['backend'].upcase).new(backend_config)
 
-        redirect backend.url_for(payload.merge({'verb' => 'PUT'}))
+        redirect backend.url_for(payload.merge({'verb' => verb}))
       end
 
-      private
       def decode_payload_from(token)
         decoded_payload, header = JWT.decode(
           token,
@@ -80,7 +79,7 @@ module Travis
           }
         )
 
-        decoded_payload['payload']
+        decoded_payload['payload'].tap {|pl| raise unless validate(pl)}
       end
 
       def validate(payload)
