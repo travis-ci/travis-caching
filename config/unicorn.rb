@@ -10,7 +10,6 @@ before_fork do |server, worker|
 end
 
 after_fork do |server, worker|
-  Travis::Caching.connect
 
   if reporter = Travis::Metrics.reporter
     reporter.stop
