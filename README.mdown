@@ -8,7 +8,7 @@ Travis Caching is a small Sinatra app which acts as a proxy to the Travis cachin
 ## Overview
 
 Travis Caching (TC) provides a few useful API endpoints for serving client programs.
-A client sends TC a vaild token bearing payload, and TC verifies the token,
+A client sends TC a payload containing a valid token, and TC verifies the token,
 processes the payload, and redirects the request a correct URL for the caching
 backend.
 
