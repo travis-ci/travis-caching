@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'travis-support',  github: 'travis-ci/travis-support'
+gem 'travis-support',  git: 'https://github.com/travis-ci/travis-support'
 
 gem 'sinatra',         '~> 1.4.2'
 gem 'rake'
 gem 'redis'
 gem 'multi_json'
 
-gem 'sentry-raven',    github: 'getsentry/raven-ruby'
+gem 'sentry-raven',    git: 'https://github.com/getsentry/raven-ruby'
 
 gem 'activesupport',   '~> 3.2.13'
 gem 'hashr',           '~> 0.0.19'
