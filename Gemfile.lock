@@ -1,14 +1,13 @@
 GIT
-  remote: git://github.com/getsentry/raven-ruby.git
-  revision: 2e077fa2b1c396b8c15d1ef29e3a8b973920d6cd
+  remote: https://github.com/getsentry/raven-ruby
+  revision: eafa3b5a4499b220a4dfb5e9075ee658dbb4e518
   specs:
-    sentry-raven (0.13.2)
-      certifi
-      faraday (>= 0.7.6)
+    sentry-raven (2.1.0)
+      faraday (>= 0.7.6, < 0.10.x)
 
 GIT
-  remote: git://github.com/travis-ci/travis-support.git
-  revision: e7f81093f83bd029cca6508739c5720e57e3d571
+  remote: https://github.com/travis-ci/travis-support
+  revision: 2cd02d2a06fdd1e2fc2f129148c168b56f7c190f
   specs:
     travis-support (0.0.1)
 
@@ -25,7 +24,6 @@ GEM
     backports (3.6.4)
     celluloid (0.16.0)
       timers (~> 4.0.0)
-    certifi (14.5.14)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
     connection_pool (2.2.0)
@@ -33,7 +31,7 @@ GEM
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    faraday (0.9.1)
+    faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     foreman (0.41.0)
       thor (>= 0.13.6)
@@ -138,3 +136,6 @@ DEPENDENCIES
   unicorn (~> 4.6.2)
   webmock
   yajl-ruby (~> 1.1.0)
+
+BUNDLED WITH
+   1.13.5
