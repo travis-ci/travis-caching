@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.3.4'
+
 gem 'travis-support',  git: 'https://github.com/travis-ci/travis-support'
 
 gem 'sinatra',         '~> 1.4.2'
