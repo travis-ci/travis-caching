@@ -7,6 +7,7 @@ sudo: false
 cache: bundler
 
 before_install:
+  - gem install rubygems-update -v 3.4.22
   - cp config/travis.example.yml config/travis.yml
 
 bundler_args: --without development --deployment
